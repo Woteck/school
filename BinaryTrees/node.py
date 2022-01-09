@@ -1,35 +1,37 @@
-class Noeud:
-    def __init__(self, key=None, left=None, right=None) -> None:
+class Node:
+    def __init__(self, key=None):
         self.key    = key
-        self.L      = left
-        self.R      = right
-    
+        self.childL = None
+        self.childR = None
+
     def setKey(self, newKey):
         self.key = newKey
     
-    def setLeft(self, key, left=None, right=None):
-        self.L = Noeud(key, left, right)
+    def setLeft(self, key):
+        self.childL = Node(key)
     
-    def setRight(self, key, left=None, right=None):
-        self.R = Noeud(key, left, right)
-    
+    def setRight(self, key):
+        self.childR = Node(key)
+
     def insertLeft(self, key):
-        cache_left = self.getLeft()
-        self.setLeft(key, left=cache_left)
+        newNode = Node(key)
+        newNode.L = self.childL()
+        self.childL = newNode
 
     def insertRight(self, key):
-        cache_right = self.getRight()
-        self.setRight(key, left=cache_right)
+        newNode = Node(key)
+        newNode.R = self.childR()
+        self.childR = newNode
 
     def getKey(self):
         return self.key
 
     def getLeft(self):
-        return self.L
+        return self.childL
     
     def getRight(self):
-        return self.R
-    
+        return self.childR
+
     def show(self):
         if self != None:
             if self.getLeft() != None and self.getRight() != None:
@@ -124,4 +126,20 @@ class Noeud:
                 L.append(right)
             result.append(L.pop(0).getKey())
         return result
-    
+
+    def dichotomy(self, s):
+        node = self
+
+        def d(s, node):
+            if node is None:
+                return False
+                
+            root = int(node.getKey())
+            if root == s:
+                return True
+            elif root > s:
+                return d(s, node.getLeft())
+            elif root < s:
+                return d(s, node.getRight())
+        
+        return d(s, node)
