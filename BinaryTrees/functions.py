@@ -7,10 +7,10 @@ def tree_test(my_tree):
     print(f'Length : {my_tree.length()}')
     print(f'Height : {my_tree.height()}')
 
-    print('Parcours infixe   : ', ' -> '.join(L_int_to_str(inorder_traversal(my_tree))))
-    print('Parcours postfixe : ', ' -> '.join(L_int_to_str(preorder_traversal(my_tree))))
-    print('Parcours prefixe  : ', ' -> '.join(L_int_to_str(postorder_traversal(my_tree))))
-    print('Parcours largeur  : ', ' -> '.join(L_int_to_str(breadth_first_search(my_tree))))
+    print('In-order traversal    : ', ' -> '.join(L_int_to_str(inorder_traversal(my_tree))))
+    print('Post-order traversal  : ', ' -> '.join(L_int_to_str(preorder_traversal(my_tree))))
+    print('Pre-order traversal   : ', ' -> '.join(L_int_to_str(postorder_traversal(my_tree))))
+    print('Parcours largeur      : ', ' -> '.join(L_int_to_str(breadth_first_search(my_tree))))
 
     print(dichotomy_search(my_tree, 5))
 
@@ -58,13 +58,14 @@ def breadth_first_search(tree : Node):
         result.append(L.pop(0).getKey())
     return result
 
-def dichotomy_search(tree : Node, s):
+def dichotomy_search(tree : Node, k):
+    """ the keys must be integers """
     if tree is None:
         return False
     value = int(tree.getKey())
-    if value == s:
+    if value == k:
         return True
-    if value > s:
-        return dichotomy_search(tree.getLeft(), s)
+    if value > k:
+        return dichotomy_search(tree.getLeft(), k)
     else:
-        return dichotomy_search(tree.getRight(), s)
+        return dichotomy_search(tree.getRight(), k)
