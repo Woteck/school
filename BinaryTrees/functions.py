@@ -1,6 +1,5 @@
 from node import Node
 
-# TESTS
 def tree_test(my_tree):
     print(my_tree)
     print(my_tree.show())
